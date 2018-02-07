@@ -1,0 +1,4 @@
+make rating system add 5 star if rating is undefined
+make rating system check existing rating before submition
+products.cfm?dpt= null check and fix
+check email validation
