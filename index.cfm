@@ -27,7 +27,7 @@
 
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
-
+	<link type="text/css" rel="stylesheet" href="css/snackbar.css">
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -73,49 +73,7 @@ function copyToClipboard(element) {
   $temp.remove();
 }
 </script>
-<style>
-#snackbar {
-    visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    bottom: 30px;
-    font-size: 17px;
-}
 
-#snackbar.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-@-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;} 
-    to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;} 
-    to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
-}
-</style>
 
 </head>
 <body>
@@ -195,6 +153,23 @@ function copyToClipboard(element) {
 				<div class="pull-right">
 					<ul class="header-btns">
 						<!-- Account -->
+						<cfif structKeyExists(session, 'loggedUser')>
+							<li class="header-account dropdown default-dropdown">
+							<div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+								<div class="header-btns-icon">
+									<i class="fa fa-user-o"></i>
+								</div>
+								<strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
+							</div>
+							<a href="logout.cfm" class="text-uppercase">Logout</a>
+							<ul class="custom-menu">
+								<li><a href="profile.cfm"><i class="fa fa-user-o"></i> My Account</a></li>
+								<li><a href="profile.cfm?wishtlist"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+								<li><a href="checkout.cfm"><i class="fa fa-check"></i> Checkout</a></li>
+								<li><a href="logout.cfm"><i class="fa fa-unlock-alt"></i> Logout</a></li>
+							</ul>
+						</li>
+						<cfelse>
 						<li class="header-account dropdown default-dropdown">
 							<div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
 								<div class="header-btns-icon">
@@ -202,16 +177,13 @@ function copyToClipboard(element) {
 								</div>
 								<strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
 							</div>
-							<a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
+							<a href="login.html" class="text-uppercase">Login</a> / <a href="signup.html" class="text-uppercase">Join</a>
 							<ul class="custom-menu">
-								<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-								<li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-								<li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-								<li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-								<li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-								<li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+								<li><a href="signup.html"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+								<li><a href="login.html"><i class="fa fa-user-plus"></i> Login</a></li>
 							</ul>
 						</li>
+						</cfif>
 						<!-- /Account -->
 
 <!-- cart start -->
@@ -753,7 +725,7 @@ select * from subdepartment where departmentid =  "#dptmenu['departmentid'][i]#"
 										<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 										<p id="p#counter#" style="display: none">product-page.cfm?itemid=#itemid#</p>
 										<button class="main-btn icon-btn" onclick="copyToClipboard('##p#counter#'); successbar();"><i class="fa fa-share-alt"></i></button>
-										<button class="primary-btn add-to-cart" onclick="addnew(#itemid#,1,#price#)"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+										<button class="primary-btn add-to-cart" onclick="addnew(#itemid#,1,#price#); addedbar();"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
 									</div>
 								</div>
 							</div>
@@ -767,6 +739,7 @@ select * from subdepartment where departmentid =  "#dptmenu['departmentid'][i]#"
 			</div>
 			<!-- /row -->
 <div id="snackbar">Link copied</div>
+<div id="snackbaradd">item added</div>
 			<!-- row -->
 			<div class="row">
 				<!-- section title -->
@@ -825,7 +798,7 @@ select * from subdepartment where departmentid =  "#dptmenu['departmentid'][i]#"
 							<!-- Product Single -->
 							<div class="product product-single">
 								<div class="product-thumb">
-									<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+	<a href="product-page.cfm?itemid=#itemid#"><button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button></a>
 									<cfif #cartImg# eq ""><img src="./img/product01.jpg" alt=""><cfelse><img src="#cartImg#" alt=""></cfif>
 								</div>
 								<div class="product-body">
@@ -842,7 +815,7 @@ select * from subdepartment where departmentid =  "#dptmenu['departmentid'][i]#"
 										<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 										<p id="p#counterz#" style="display: none">product-page.cfm?itemid=#itemid#</p>
 										<button class="main-btn icon-btn" onclick="copyToClipboard('##p#counterz#'); successbar();"><i class="fa fa-share-alt"></i></button>
-										<button class="primary-btn add-to-cart" onclick="addnew(#itemid#,1,#price#)"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+										<button class="primary-btn add-to-cart" onclick="addnew(#itemid#,1,#price#);addedbar();"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
 									</div>
 								</div>
 							</div>
@@ -859,7 +832,11 @@ select * from subdepartment where departmentid =  "#dptmenu['departmentid'][i]#"
 		<!-- /container -->
 	</div>
 	<!-- /section -->
-
+<cfquery name="newcollection">
+SELECT * FROM (
+  SELECT * FROM subdepartment ORDER BY subdptid DESC LIMIT 3
+) as r ORDER BY subdptid
+</cfquery>
 
 
 	<!-- section -->
@@ -868,38 +845,19 @@ select * from subdepartment where departmentid =  "#dptmenu['departmentid'][i]#"
 		<div class="container">
 			<!-- row -->
 			<div class="row">
+<cfoutput query="newcollection">
 				<!-- banner -->
 				<div class="col-md-4 col-sm-6">
-					<a class="banner banner-1" href="#">
-						<img src="./img/banner10.jpg" alt="">
+					<a class="banner banner-1" href="products.cfm?dpt=#subdptid#">
+							<cfif #img# eq ""><img src="./img/banner10.jpg" alt=""><cfelse><img src="#img#" alt=""></cfif>
 						<div class="banner-caption text-center">
 							<h2 class="white-color">NEW COLLECTION</h2>
+								<h3>#subdptname#</h3>
 						</div>
 					</a>
 				</div>
 				<!-- /banner -->
-
-				<!-- banner -->
-				<div class="col-md-4 col-sm-6">
-					<a class="banner banner-1" href="#">
-						<img src="./img/banner11.jpg" alt="">
-						<div class="banner-caption text-center">
-							<h2 class="white-color">NEW COLLECTION</h2>
-						</div>
-					</a>
-				</div>
-				<!-- /banner -->
-
-				<!-- banner -->
-				<div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3">
-					<a class="banner banner-1" href="#">
-						<img src="./img/banner12.jpg" alt="">
-						<div class="banner-caption text-center">
-							<h2 class="white-color">NEW COLLECTION</h2>
-						</div>
-					</a>
-				</div>
-				<!-- /banner -->
+</cfoutput>
 						
 			</div>
 			<!-- /row -->
@@ -959,118 +917,6 @@ select * from subdepartment where departmentid =  "#dptmenu['departmentid'][i]#"
 	<div class="section">
 		<!-- container -->
 		<div class="container">
-			<!-- row -->
-
-			<!-- /row -->
-
-			<!-- row -->
-			<div class="row">
-				<!-- banner -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="banner banner-2">
-						<img src="./img/banner15.jpg" alt="">
-						<div class="banner-caption">
-							<h2 class="white-color">NEW<br>COLLECTION</h2>
-							<button class="primary-btn">Shop Now</button>
-						</div>
-					</div>
-				</div>
-				<!-- /banner -->
-
-				<!-- Product Single -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="product product-single">
-						<div class="product-thumb">
-							<div class="product-label">
-								<span>New</span>
-								<span class="sale">-20%</span>
-							</div>
-							<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-							<img src="./img/product07.jpg" alt="">
-						</div>
-						<div class="product-body">
-							<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
-							<div class="product-rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star-o empty"></i>
-							</div>
-							<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-							<div class="product-btns">
-								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Product Single -->
-
-				<!-- Product Single -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="product product-single">
-						<div class="product-thumb">
-							<div class="product-label">
-								<span>New</span>
-								<span class="sale">-20%</span>
-							</div>
-							<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-							<img src="./img/product06.jpg" alt="">
-						</div>
-						<div class="product-body">
-							<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
-							<div class="product-rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star-o empty"></i>
-							</div>
-							<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-							<div class="product-btns">
-								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Product Single -->
-
-				<!-- Product Single -->
-				<div class="col-md-3 col-sm-6 col-xs-6">
-					<div class="product product-single">
-						<div class="product-thumb">
-							<div class="product-label">
-								<span>New</span>
-								<span class="sale">-20%</span>
-							</div>
-							<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-							<img src="./img/product05.jpg" alt="">
-						</div>
-						<div class="product-body">
-							<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
-							<div class="product-rating">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star-o empty"></i>
-							</div>
-							<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-							<div class="product-btns">
-								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- /Product Single -->
-			</div>
-			<!-- /row -->
 
 			<!-- row -->
 			<div class="row">
@@ -1311,30 +1157,13 @@ select * from subdepartment where departmentid =  "#dptmenu['departmentid'][i]#"
 	<script src="js/nouislider.min.js"></script>
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/main.js"></script>
-		  <!-- Modal -->
-  <div class="modal fade" id="addmodal" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body" align="center" style="background-color: #3ec48d">
-<img src="img/cart.gif" width="266.6" height="200" >
-        </div>
-        <div class="modal-footer" style="background-color: #3ec48d">
-        <h4 style="color: white;">Success! item added</h4>
-      	</div>
-      </div>
-      	  <!-- Modal -->
-  <div class="modal fade" id="delmodal" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header" style="background-color:red; color:#fff ">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">item Deleted!</h4>
-        </div>
-        <div class="modal-body">
-          <p>This is a small modal.</p>
-        </div>
-
-      </div>
+<script>
+function addedbar() {
+    var x = document.getElementById("snackbaradd")
+    x.className = "showadd";
+    setTimeout(function(){ x.className = x.className.replace("showadd", ""); }, 3000);
+}
+</script>
 
 
 <script>

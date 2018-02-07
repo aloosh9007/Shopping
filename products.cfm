@@ -101,64 +101,53 @@ function copyToClipboard(element) {
   $temp.remove();
 }
 </script>
-<style>
-#snackbar {
-    visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    bottom: 30px;
-    font-size: 17px;
-}
-
-#snackbar.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-@-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;} 
-    to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;} 
-    to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
-}
-</style>
-
 
 </head>
+<!-- page protection -->
 <cfif isDefined('url.dpt')>
 		<cfif #url.dpt# eq ""><cfset url.dpt = 0></cfif>
-<cfset items = application.products.departmentitems(url.dpt) /> 
-</cfif>
-<cfif isDefined('url.search')>
-<cfset items = application.pageservice.searchItem(url.search) />
-</cfif>
-<cfif structKeyExists( variables, 'items' )>
-<cflocation url="index.cfm">	
-	<cfif #items.recordcount# eq 0>
-<cflocation url="index.cfm">
-</cfif></cfif>
+<!-- pagination start -->
+<cfset  resultsPerpage = 9 />
+	<cfset numofresults = #items.recordcount# />
+		<cfset numberofpages = #ceiling(numofresults / resultsPerpage)# />
+			<cfset q = reReplaceNoCase(cgi.query_string, "page=[^&]+&?", "")>
+				<cfset currentURL = #q#  />
+					<cfif isDefined('url.page')>
+						<cfelse>
+					<cfset url.page = 1>
+				</cfif>
+			<cfset start = (#url.page# - 1) * #resultsPerpage# />
+		<cfquery name="getreviews">
+	Select * from reviews where itemid = '#item.itemid#' LIMIT #start#, #resultsPerpage#
+</cfquery>
+<!-- / end pagination -->
+			<cfset items = application.products.departmentitems(url.dpt) /> 
+				</cfif>
+					<cfif isDefined('url.search')>
+<!-- pagination start -->
+<cfset  resultsPerpage = 9 />
+	<cfset numofresults = #items.recordcount# />
+		<cfset numberofpages = #ceiling(numofresults / resultsPerpage)# />
+			<cfset q = reReplaceNoCase(cgi.query_string, "page=[^&]+&?", "")>
+				<cfset currentURL = #q#  />
+					<cfif isDefined('url.page')>
+						<cfelse>
+					<cfset url.page = 1>
+				</cfif>
+			<cfset start = (#url.page# - 1) * #resultsPerpage# />
+		<cfquery name="getreviews">
+	Select * from reviews where itemid = '#item.itemid#' LIMIT #start#, #resultsPerpage#
+</cfquery>
+<!-- / end pagination -->
+						<cfset items = application.pageservice.searchItem(url.search) />
+							</cfif>
+								<cfif NOT structKeyExists( variables, 'items' )>
+									<cflocation url="index.cfm">	
+										<cfif #items.recordcount# eq 0>
+											<cflocation url="index.cfm">
+												</cfif>
+													</cfif>
+
 <body>
 
 	<!-- /HEADER -->
@@ -312,10 +301,13 @@ function copyToClipboard(element) {
 									</select>
 							</div>
 							<ul class="store-pages">
-								<li><span class="text-uppercase">Page:</span></li>
-								<li class="active">1</li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
+													<cfloop from="1" to="#numberofpages#" index="i">
+													<cfif #i# eq #url.page#>
+													<cfoutput><li class="active">#i#</cfoutput></li>
+													<cfelse><li>
+														<cfoutput><a href="product-page.cfm?page=#i#&#currentURL#&##tab2">#i#</cfoutput></a></li>
+													</cfif>
+													</cfloop>
 								<li><a href="#"><i class="fa fa-caret-right"></i></a></li>
 							</ul>
 						</div>
@@ -354,13 +346,14 @@ function copyToClipboard(element) {
 											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 <p id="p#counter#" style="display: none">product-page.cfm?itemid=#itemid#</p>
 										<button class="main-btn icon-btn" onclick="copyToClipboard('##p#counter#'); successbar();"><i class="fa fa-share-alt"></i></button>
-											<button class="primary-btn add-to-cart" onclick="addnew(#itemid#,1,#price#)"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+											<button class="primary-btn add-to-cart" onclick="addnew(#itemid#,1,#price#); addedbar();"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
 										</div>
 									</div>
 								</div>
 			<cfset counter++>				</div>
 </cfoutput>							<!-- /Product Single -->
 <div id="snackbar">Link Copied</div>
+<div id="snackbaradd">Success! item added</div>
 
 							<div class="clearfix visible-sm visible-xs"></div>
 
@@ -521,6 +514,13 @@ function copyToClipboard(element) {
 	<script src="js/nouislider.min.js"></script>
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/main.js"></script>
+	<script>
+function addedbar() {
+    var x = document.getElementById("snackbaradd")
+    x.className = "showadd";
+    setTimeout(function(){ x.className = x.className.replace("showadd", ""); }, 3000);
+}
+</script>
 		<script>
 function successbar() {
     var x = document.getElementById("snackbar")

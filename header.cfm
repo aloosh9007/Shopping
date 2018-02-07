@@ -1,3 +1,4 @@
+	<link type="text/css" rel="stylesheet" href="css/snackbar.css">
 <cfset dpt = application.pageservice.alldpts() />
 <!-- init cart and cart functions -->
 <!-- Start Cart services -->
@@ -72,6 +73,23 @@
 				<div class="pull-right">
 					<ul class="header-btns">
 						<!-- Account -->
+						<cfif structKeyExists(session, 'loggedUser')>
+							<li class="header-account dropdown default-dropdown">
+							<div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+								<div class="header-btns-icon">
+									<i class="fa fa-user-o"></i>
+								</div>
+								<strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
+							</div>
+							<a href="logout.cfm" class="text-uppercase">Logout</a>
+							<ul class="custom-menu">
+								<li><a href="profile.cfm"><i class="fa fa-user-o"></i> My Account</a></li>
+								<li><a href="profile.cfm?wishtlist"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+								<li><a href="checkout.cfm"><i class="fa fa-check"></i> Checkout</a></li>
+								<li><a href="logout.cfm"><i class="fa fa-unlock-alt"></i> Logout</a></li>
+							</ul>
+						</li>
+						<cfelse>
 						<li class="header-account dropdown default-dropdown">
 							<div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
 								<div class="header-btns-icon">
@@ -81,14 +99,11 @@
 							</div>
 							<a href="login.html" class="text-uppercase">Login</a> / <a href="signup.html" class="text-uppercase">Join</a>
 							<ul class="custom-menu">
-								<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-								<li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-								<li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-								<li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-								<li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-								<li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+								<li><a href="signup.html"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+								<li><a href="login.html"><i class="fa fa-user-plus"></i> login</a></li>
 							</ul>
 						</li>
+						</cfif>
 						<!-- /Account -->
 
 <!-- cart start -->
