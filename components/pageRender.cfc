@@ -22,9 +22,11 @@ Select * from items where bestseller = 1
 <!-- get items by department -->
 <cffunction name="departmentitems" access="public" returntype="query">
 <cfargument name="departmentid" type="numeric" required="true" />
+<cfargument name="start" type="numeric" required="true" />
+<cfargument name="endat" type="numeric" required="true" />
 <cfset items = '' />
 <cfquery name="items">
-Select * from items where subdpt = '#arguments.departmentid#'
+Select * from items where subdpt = '#arguments.departmentid#' LIMIT #arguments.start#, #arguments.endat#
 </cfquery>
 <cfreturn items>
 </cffunction>

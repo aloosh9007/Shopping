@@ -13,10 +13,12 @@
 <!-- item search function -->
 <cffunction name="searchItem" returntype="query">
 	<cfargument name="itemname" type="string" rquired="true">
+	<cfargument name="start" type="numeric" required="true" />
+	<cfargument name="endat" type="numeric" required="true" />
 	<cfset var items= '' />
 	
 	<cfquery name="items">
-	select * from items where itemname like '#arguments.itemname#%'
+	select * from items where itemname like '#arguments.itemname#%' LIMIT #arguments.start#, #arguments.endat#
 	</cfquery>
 	<cfreturn items>
 </cffunction>

@@ -107,39 +107,34 @@ function copyToClipboard(element) {
 <cfif isDefined('url.dpt')>
 		<cfif #url.dpt# eq ""><cfset url.dpt = 0></cfif>
 <!-- pagination start -->
-<cfset  resultsPerpage = 9 />
-	<cfset numofresults = #items.recordcount# />
-		<cfset numberofpages = #ceiling(numofresults / resultsPerpage)# />
-			<cfset q = reReplaceNoCase(cgi.query_string, "page=[^&]+&?", "")>
-				<cfset currentURL = #q#  />
-					<cfif isDefined('url.page')>
-						<cfelse>
-					<cfset url.page = 1>
-				</cfif>
-			<cfset start = (#url.page# - 1) * #resultsPerpage# />
-		<cfquery name="getreviews">
-	Select * from reviews where itemid = '#item.itemid#' LIMIT #start#, #resultsPerpage#
-</cfquery>
+<cfif isDefined('url.page')>
+	<cfelse>
+		<cfset url.page = 1>
+			</cfif>
+				<cfset  resultsPerpage = 9 />
+					<cfset start = (#url.page# - 1) * #resultsPerpage# />
+					<!-- item setup -->			<cfset items = application.products.departmentitems(url.dpt, #start#, #resultsPerpage#) /> 
+						<cfset numofresults = #items.recordcount# />
+							<cfset numberofpages = #ceiling(numofresults / resultsPerpage)# />
+								<cfset q = reReplaceNoCase(cgi.query_string, "page=[^&]+&?", "")>
+									<cfset currentURL = #q#  />		
 <!-- / end pagination -->
-			<cfset items = application.products.departmentitems(url.dpt) /> 
+
 				</cfif>
 					<cfif isDefined('url.search')>
 <!-- pagination start -->
-<cfset  resultsPerpage = 9 />
-	<cfset numofresults = #items.recordcount# />
-		<cfset numberofpages = #ceiling(numofresults / resultsPerpage)# />
-			<cfset q = reReplaceNoCase(cgi.query_string, "page=[^&]+&?", "")>
-				<cfset currentURL = #q#  />
-					<cfif isDefined('url.page')>
-						<cfelse>
-					<cfset url.page = 1>
-				</cfif>
-			<cfset start = (#url.page# - 1) * #resultsPerpage# />
-		<cfquery name="getreviews">
-	Select * from reviews where itemid = '#item.itemid#' LIMIT #start#, #resultsPerpage#
-</cfquery>
+<cfif isDefined('url.page')>
+	<cfelse>
+		<cfset url.page = 1>
+			</cfif>
+				<cfset  resultsPerpage = 9 />
+					<cfset start = (#url.page# - 1) * #resultsPerpage# />
+						<cfset numofresults = #items.recordcount# />
+						<!-- item setup -->						<cfset items = application.pageservice.searchItem(url.search, #start#, #resultsPerpage#) />
+							<cfset numberofpages = #ceiling(numofresults / resultsPerpage)# />
+								<cfset q = reReplaceNoCase(cgi.query_string, "page=[^&]+&?", "")>
+									<cfset currentURL = #q#  />		
 <!-- / end pagination -->
-						<cfset items = application.pageservice.searchItem(url.search) />
 							</cfif>
 								<cfif NOT structKeyExists( variables, 'items' )>
 									<cflocation url="index.cfm">	
