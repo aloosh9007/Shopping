@@ -22,6 +22,13 @@ function addnew(itemid, qty, price){
 </script>
 </head>
 
+<cfif isDefined('url.clearall')>
+<cfset structDelete(session, 'shoppingCart') />
+</cfif>
+<select id="state"></select>
+
+<div id="container"></div>
+
 <!-- Start Cart services -->
 <cfif isDefined('session.shoppingCart.item')>
 	<cfelse>

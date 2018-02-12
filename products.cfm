@@ -386,10 +386,13 @@ function copyToClipboard(element) {
 									</select>
 							</div>
 							<ul class="store-pages">
-								<li><span class="text-uppercase">Page:</span></li>
-								<li class="active">1</li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
+<cfloop from="1" to="#numberofpages#" index="i">
+													<cfif #i# eq #url.page#>
+													<cfoutput><li class="active">#i#</cfoutput></li>
+													<cfelse><li>
+														<cfoutput><a href="product-page.cfm?page=#i#&#currentURL#&##tab2">#i#</cfoutput></a></li>
+													</cfif>
+													</cfloop>
 								<li><a href="#"><i class="fa fa-caret-right"></i></a></li>
 							</ul>
 						</div>

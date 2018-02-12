@@ -48,8 +48,8 @@
 									</cfloop><!-- /widget loop end -->
 									</div>
 									<div class="shopping-cart-btns">
-										<button class="main-btn">View Cart</button>
-										<button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+										<a href="cart.cfm"><button class="main-btn">View Cart</button></a>
+								<a href="Checkout.cfm"><button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button></a>
 									</div>
 								</div>
 							</div>
@@ -88,7 +88,7 @@
 									</div>
 									<div class="shopping-cart-btns">
 										<button class="main-btn">View Cart</button>
-										<button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+									<a href="Checkout.cfm">	<button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button></a>
 									</div>
 								</div>
 							</div>

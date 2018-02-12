@@ -1,6 +1,14 @@
 <!-- cart add items -->
 <cfcomponent output="false">
-
+<cffunction name="updateqty" access="remote" returntype="any">
+<cfargument name="qty" required="true">
+<cfargument name="itemid" required="true">
+<cfif #arguments.qty# eq 0>
+	<cfset StructDelete(Session.shoppingcart.item, '#arguments.itemid#')> 
+<cfelse>
+			<cfset session.shoppingCart.item[#arguments.itemid#].qty = #arguments.qty#  />
+</cfif>
+</cffunction>
 <!--- add item function --->
 <cffunction name="additem" returntype="any">
 	<cfargument name="itemid" type="numeric">
@@ -30,7 +38,7 @@
 		<cfreturn cartItems>
 	</cffunction>
 <!-- none session cart total -->
-	<cffunction name="CartTotal" returntype="any">
+	<cffunction name="CartTotal" returntype="any" access="remote">
 		<cfset total = 0>
 <cfloop collection="#session.shoppingCart.item#" item="key">
 			<cfset total = total + (#session.shoppingcart.item[key].price# * #session.shoppingcart.item[key].qty#) >

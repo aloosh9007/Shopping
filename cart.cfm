@@ -27,7 +27,6 @@
 
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
-
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -58,22 +57,7 @@ $('#tfooter').html(content);
 }});
 }
 		</script>
-		<cfif structKeyExists(session, 'loggedUser')>
-<script>
-makepayment(){
-var x =    document.getElementById("different").checked;
-if(x){document.getElementById("checkout-form").submit();}
-else{window.location.href="payment.cfm?SameShipping"}
 
-}
-</script>
-<cfelse>
-<script>
-makepayment(){
-document.getElementById("checkout-form").submit();
-}
-</script>
-</cfif>
 </head>
 
 <body>
@@ -89,152 +73,11 @@ document.getElementById("checkout-form").submit();
 			</ul>
 		</div>
 	</div>
-	<!-- /BREADCRUMB -->
-
-	<!-- section -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<form id="checkout-form" class="clearfix" action="payment.cfm">
-					<div class="col-md-6">
-						<cfif NOT structKeyExists(session, 'loggedUser')>
-						<div class="billing-details">
-							<p>Already a customer ? <a href="#">Login</a></p>
-							<div class="section-title">
-								<h3 class="title">Billing Details</h3>
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="first-name" placeholder="First Name" required="true">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="last-name" placeholder="Last Name"required="true">
-							</div>
-							<div class="form-group">
-								<input class="input" type="email" name="email" placeholder="Email" required="true">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="address" placeholder="Address" required="true">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="city" placeholder="City" required="true">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="country" placeholder="Country" required="true">
-							</div>
-							<div class="form-group">
-								<input class="input" type="text" name="zip-code" placeholder="ZIP Code" required="true">
-							</div>
-							<div class="form-group">
-								<input class="input" type="tel" name="tel" placeholder="Telephone" required="true">
-							</div>
-							<div class="form-group">
-								<div class="input-checkbox">
-									<input type="checkbox" id="register">
-									<label class="font-weak" for="register">Create Account?</label>
-									<div class="caption">
-										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.
-											<p>
-												<input class="input" type="password" name="password" placeholder="Enter Your Password">
-									</div>
-								</div>
-							</div>
-						</div>
-					<cfelse>
-						<div class="billing-details">
-							<cfquery name="getaddress">
-							SELECT address, city, state, zip from users where usersid = '#session.loggedUser.userid#'
-							</cfquery>
-							<cfoutput query="getaddress">
-									<div class="section-title">
-								<h4 class="title">Home Address</h4>
-								</div>
-								<div class="caption">
-									<h3>Street Adress:</h3>
-									<h4>#address#</h4>
-									<h4>#city#, #state# #zip#</h4>
-									<div class="form-group">
-								<div class="input-checkbox">
-									<input type="checkbox" id="different">
-									<label class="font-weak" for="different">Ship to Different Address?</label>
-									<div class="caption">
-										<p>Enter the Shipping address below:</p>
-											<p>
-												<input class="input" type="text" name="address" placeholder="Address" required="true">
-												<input class="input" type="text" name="city" placeholder="City" required="true">
-												<input class="input" type="text" name="state" placeholder="State" required="true">
-												<input class="input" type="text" name="zip" placeholder="Zip" required="true">
-									</div>
-								</div>
-							</div>
-
-
-								</div>
-							</cfoutput>
-						</div>
-						</cfif>
-					</div>
-
-					<div class="col-md-6">
-						<div class="shiping-methods">
-							<div class="section-title">
-								<h4 class="title">Shiping Methods</h4>
-							</div>
-							<div class="input-checkbox">
-								<input type="radio" name="shipping" id="shipping-1" checked>
-								<label for="shipping-1">Free Shiping -  $0.00</label>
-								<div class="caption">
-									<p>We offer free standard shipping any where in the us; However, you can select our 2 day shipping to expedite</p>
-										
-								</div>
-							</div>
-							<div class="input-checkbox">
-								<input type="radio" name="shipping" id="shipping-2">
-								<label for="shipping-2">Standard - $4.00</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										<p>
-								</div>
-							</div>
-						</div>
-
-						<div class="payments-methods">
-							<div class="section-title">
-								<h4 class="title">Payments Methods</h4>
-							</div>
-							<div class="input-checkbox">
-								<input type="radio" name="payments" id="payments-1" checked>
-								<label for="payments-1">Direct Bank Transfer</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										<p>
-								</div>
-							</div>
-							<div class="input-checkbox">
-								<input type="radio" name="payments" id="payments-2">
-								<label for="payments-2">Cheque Payment</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										<p>
-								</div>
-							</div>
-							<div class="input-checkbox">
-								<input type="radio" name="payments" id="payments-3">
-								<label for="payments-3">Paypal System</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										<p>
-								</div>
-							</div>
-						</div>
-					</div>
-					</form>
 		<cfif isDefined('session.shoppingCart.item')>
 			<cfif structCount(session.shoppingCart.item) neq 0>
 				<cfset cartItems = application.cart.cartCounter()>
 
-					<div class="col-md-12">
+					<div class="col-md-12" id="div1-wrapper">
 						<div class="order-summary clearfix">
 							<div class="section-title">
 								<h3 class="title">Order Review</h3>
@@ -247,6 +90,7 @@ document.getElementById("checkout-form").submit();
 										<th class="text-center">Price</th>
 										<th class="text-center">Quantity</th>
 										<th class="text-center">Total</th>
+										<th class="text-right"></th>
 										<th class="text-right"></th>
 									</tr>
 								</thead>
@@ -267,22 +111,30 @@ document.getElementById("checkout-form").submit();
 										</td>
 										<td class="price text-center"><strong>$#session.shoppingcart.item[key].price#</strong><br><del class="font-weak">
 											<small>$#session.shoppingcart.item[key].price#</small></del></td>
-										<td class="qty text-center"><input class="input" type="number" value="#session.shoppingcart.item[key].qty#"></td>
+										<td class="qty text-center"><input class="input" name="qty" id="qty#counter#" 
+										 type="number" value="#session.shoppingcart.item[key].qty#"></td>
 										<td class="total text-center"><strong class="primary-color">
 										$#(session.shoppingcart.item[key].qty * session.shoppingcart.item[key].price)#
 									</strong></td>
 								<td class="text-right"><button 
 								 class="main-btn icon-btn"  onclick="delitem(#session.shoppingcart.item[key].itemid#, #counter#)">
 											<i class="fa fa-close"></i></button></td>
+
+
+											<td class="text-right"><button 
+								 class="main-btn icon-btn"  onclick="updateqty(#counter#, #session.shoppingcart.item[key].itemid#)">
+											<i class="fa fa-refresh"></i></button></td>
+
+
 									</tr>
 <!-- /item list here -->
 									</cfoutput>
 									<cfset counter++>
 									</cfloop>
-									<cfset total = application.cart.cartTotal() />
 
 								</tbody>
-								<tfoot id="tfoot">
+								<cfset total = application.cart.cartTotal() />
+								<tfoot id="tfooter">
 									<tr>
 										<th class="empty" colspan="3"></th>
 										<th>SUBTOTAL</th>
@@ -307,10 +159,8 @@ document.getElementById("checkout-form").submit();
 								</tfoot>
 							</table>
 							<div class="pull-right">
-<cfoutput>
-<cfset final = final * 100>
-<button class="primary-btn" trype="submit">Make payment</button>
-</cfoutput>								
+
+<a href="checkout.cfm"><button class="primary-btn">Proceed to Checkout</button></a>
 							</div>
 						</div>
 
@@ -338,6 +188,7 @@ document.getElementById("checkout-form").submit();
 	<!-- /section -->
 <div id="snackbardel">Item removed!</div>
 <div id="snackbaradd">Quantity Added!</div>
+	<div>-</div>
 	<!-- FOOTER -->
 	<footer id="footer" class="section section-grey">
 		<!-- container -->
@@ -456,71 +307,6 @@ function addedbar() {
     x.className = "showadd";
     setTimeout(function(){ x.className = x.className.replace("showadd", ""); }, 3000);
 }
-</script>
-<!--- stripe start here --->
-<script>
-// Create a Stripe client
-var stripe = Stripe('pk_test_e8WG9BIIRIdaZuqVbUbxJvlI');
-
-// Create an instance of Elements
-var elements = stripe.elements();
-
-// Custom styling can be passed to options when creating an Element.
-// (Note that this demo uses a wider set of styles than the guide below.)
-var style = {
-  base: {
-
-    color: '#32325d',
-    lineHeight: '18px',
-    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-    fontSmoothing: 'antialiased',
-    fontSize: '16px',
-    '::placeholder': {
-      color: '#aab7c4'
-    }
-  },
-  invalid: {
-    color: '#fa755a',
-    iconColor: '#fa755a'
-  }
-};
-
-// Create an instance of the card Element
-var card = elements.create('card', {style: style});
-
-// Add an instance of the card Element into the `card-element` <div>
-card.mount('#card-element');
-  </script>
-<script>
-function stripeTokenHandler(token) {
-  // Insert the token ID into the form so it gets submitted to the server
-  var form = document.getElementById('payment-form');
-  var hiddenInput = document.createElement('input');
-  hiddenInput.setAttribute('type', 'hidden');
-  hiddenInput.setAttribute('name', 'stripeToken');
-  hiddenInput.setAttribute('value', token.id);
-  form.appendChild(hiddenInput);
-
-  // Submit the form
-  form.submit();
-}
-// Create a token or display an error when the form is submitted.
-  var form = document.getElementById('payment-form');
-form.addEventListener('submit', function(event) {
-  event.preventDefault();
-
-  stripe.createToken(card).then(function(result) {
-    if (result.error) {
-      // Inform the customer that there was an error
-      var errorElement = document.getElementById('card-errors');
-      errorElement.textContent = result.error.message;
-    } else {
-      // Send the token to your server
-      stripeTokenHandler(result.token);
-    }
-  });
-});
-
 </script>
 </body>
 

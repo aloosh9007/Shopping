@@ -108,24 +108,32 @@
 </style>  
 	<script>
 	function login(){
+		var $email = document.getElementById('email').value;
+		var $password = document.getElementById('password').value;
+if($email == '' || $password == ''){
+if($email == ''){$('#email').parent('div').addClass('has-error');}else{$('#email').parent('div').removeClass('has-error');}
+if($password == ''){$('#password').parent('div').addClass('has-error');}else{$('#password').parent('div').removeClass('has-error');}
+}else{
 	$('#loading').show();
+       $.ajax({
+                url: 'auth.cfm?log&email='+$email+'&key='+$password,
+                success: function(result) {
+                	var data = JSON.parse(result);
+                   if (data[0].isUser == true) {window.location.href= 'index.cfm';} 
+                   else {$('#loading').hide(); document.getElementById('errors').innerHTML = 'Account not found, please try again!'}
+                }
+       });
+
+}
 	}
+
+
 	</script>
 </head>
 
 <body>
 	<div class="image-container set-full-height" style="background-image: url('assets/img/wizard-book.jpg')">
-	    <!--   Creative Tim Branding   -->
-	    <a href="index.html">
-	         <div class="logo-container">
-	            <div class="logo">
-	                <img src="img/logo.png">
-	            </div>
-	            <div class="brand">
-Smart Store
-	            </div>
-	        </div>
-	    </a>
+	
 
 		<!--  Made With Material Kit  -->
 
@@ -155,6 +163,8 @@ Smart Store
 																				 <div class="progress" id="loading" style="display:none">
       <div class="indeterminate" ></div>
   </div>
+  <div id="errors" style="color:#db292f">
+  </div>
 		                        <div class="tab-content">
 		                            <div class="tab-pane" id="captain">
 		                            	<div class="row">
@@ -169,7 +179,7 @@ Smart Store
 													</span>
 													<div class="form-group label-floating">
 			                                          	<label class="control-label">Your Email</label>
-			                                          	<input name="name" type="text" class="form-control">
+			                                          	<input name="email" id="email" type="text" class="form-control">
 			                                        </div>
 												</div>
 											</form>
@@ -179,7 +189,7 @@ Smart Store
 													</span>
 													<div class="form-group label-floating">
 			                                          	<label class="control-label">Your Password</label>
-			                                          	<input name="name2" type="password" class="form-control">
+			                                          	<input name="password" id="password" type="password" class="form-control">
 			                                        </div>
 												</div>
 											</div>

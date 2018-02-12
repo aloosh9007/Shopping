@@ -45,4 +45,28 @@
 		where itemid = '#arguments.itemid#'
 			</cfquery>
 </cffunction>
+<cffunction name="getstate" access="remote" returntype="query">
+	<cfset result = ''>
+<cfquery name="result">
+select * from states
+</cfquery>
+<cfreturn result />
+	</cffunction>
+	<cffunction name="getstate2" access="public" returntype="void">
+
+<cfquery name="result">
+select * from states
+</cfquery>
+<cfset i = 1>
+ [
+<cfoutput query="result">
+{
+	"id":"#id#",
+	"name":"#name#",
+	"abbrev":"#abbrev#"
+}<cfif #i# neq #result.recordcount#>,</cfif>
+<cfset i++>
+</cfoutput>
+]
+	</cffunction>
 </cfcomponent>

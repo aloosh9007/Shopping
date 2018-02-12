@@ -37,17 +37,39 @@ $(document).ready(function(){
 		      required: true,
 		      minlength: 3
 		    },
-		    password: {
+            Newpassword: {
+                required: true,
+                minlength: 5
+            },
+              Cpassword: {
+                required: true,
+                equalTo: "#Newpassword"
+            },
+		    email: {
 		      required: true,
 		      minlength: 3
 		    },
-			cpassword: {
-		  equalTo: "#password",
-		    },
-		    email: {
-		      required: true,
-		      minlength: 3,
-		    }
+            Cphone: {
+                required: true,
+                minlength: 10
+            },
+               state: {
+                required: true,
+            },
+              city: {
+                required: true,
+                minlength: 3
+            },
+              zip: {
+                required: true,
+                minlength: 5
+            },
+              street: {
+                required: true,
+            },
+              country: {
+                required: true,
+            },
         },
 
         errorPlacement: function(error, element) {

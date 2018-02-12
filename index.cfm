@@ -160,8 +160,8 @@ function copyToClipboard(element) {
 									<i class="fa fa-user-o"></i>
 								</div>
 								<strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
-							</div>
-							<a href="logout.cfm" class="text-uppercase">Logout</a>
+							</div><cfoutput>Welcome #session.loggedUser.Userfirstname# | 
+							<a href="logout.cfm" class="text-uppercase"> Logout</a></cfoutput>
 							<ul class="custom-menu">
 								<li><a href="profile.cfm"><i class="fa fa-user-o"></i> My Account</a></li>
 								<li><a href="profile.cfm?wishtlist"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
@@ -177,7 +177,7 @@ function copyToClipboard(element) {
 								</div>
 								<strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
 							</div>
-							<a href="login.html" class="text-uppercase">Login</a> / <a href="signup.html" class="text-uppercase">Join</a>
+							<a href="login.html" class="text-uppercase">Login</a> / <a href="signup.cfm" class="text-uppercase">Join</a>
 							<ul class="custom-menu">
 								<li><a href="signup.html"><i class="fa fa-user-plus"></i> Create An Account</a></li>
 								<li><a href="login.html"><i class="fa fa-user-plus"></i> Login</a></li>
@@ -223,14 +223,14 @@ function copyToClipboard(element) {
 												</div>
 											<div class="product-body">
 												<h3 class="product-price"> <span class="qty"></span></h3>
-												<h2 class="product-name"><a href="#">Shopping Cart is Empty</a></h2>
+												<h2 class="product-name"><a href="##">Shopping Cart is Empty</a></h2>
 											</div>
 											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
 										</div>
 									</div>
 									<div class="shopping-cart-btns">
-										<button class="main-btn">View Cart</button>
-										<button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+									<a href="cart.cfm">	<button class="main-btn">View Cart</button></a>
+			<a href="checkout.cfm"><button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button></a>
 									</div>
 								</div>
 							</div>
