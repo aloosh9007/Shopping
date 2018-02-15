@@ -260,7 +260,7 @@ function copyToClipboard(element) {
 				<!-- init nav menu -->
 				<cfset dptmenu = application.pageService.alldpts()>
 				<!-- category nav -->
-				<div class="category-nav">
+				<div class="category-nav show-on-click">
 					<span class="category-header">Categories <i class="fa fa-list"></i></span>
 					<ul class="category-list">
 					<cfset i = 1>

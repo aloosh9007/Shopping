@@ -27,6 +27,7 @@
 
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
+<script src="https://js.stripe.com/v3/"></script>
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -58,22 +59,126 @@ $('#tfooter').html(content);
 }});
 }
 		</script>
-		<cfif structKeyExists(session, 'loggedUser')>
-<script>
-makepayment(){
-var x =    document.getElementById("different").checked;
-if(x){document.getElementById("checkout-form").submit();}
-else{window.location.href="payment.cfm?SameShipping"}
-
-}
-</script>
+	<cfif structKeyExists(session, 'loggedUser')>
+<input type="hidden" id="userlog" value="true">
 <cfelse>
-<script>
-makepayment(){
-document.getElementById("checkout-form").submit();
-}
-</script>
+<input type="hidden" id="userlog" value="false">
 </cfif>
+<style>
+.modal-backdrop {
+background-color: rgba(255,255,255, 255, 12)  !important;
+}
+
+.spinner {
+	margin-top: 20%;
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid #3498db;
+  width: 100px;
+  height: 100px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s ease infinite;
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.sk-cube-grid {
+  width: 40px;
+  height: 40px;
+  margin: 100px auto;
+}
+
+.sk-cube-grid .sk-cube {
+  width: 33%;
+  height: 33%;
+  background-color: white;
+  float: left;
+  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+          animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+}
+.sk-cube-grid .sk-cube1 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube2 {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube3 {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s; }
+.sk-cube-grid .sk-cube4 {
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube5 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube6 {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube7 {
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s; }
+.sk-cube-grid .sk-cube8 {
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube9 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+
+@-webkit-keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+  } 35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1); 
+  }
+}
+
+@keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+  } 35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1);
+  } 
+}
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+.StripeElement {
+  background-color: white;
+  height: 40px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccd0d2;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+</style>
 </head>
 
 <body>
@@ -97,7 +202,7 @@ document.getElementById("checkout-form").submit();
 		<div class="container">
 			<!-- row -->
 			<div class="row">
-				<form id="checkout-form" class="clearfix" action="payment.cfm">
+				<form id="payment-form" class="clearfix" action="payment.cfm">
 					<div class="col-md-6">
 						<cfif NOT structKeyExists(session, 'loggedUser')>
 						<div class="billing-details">
@@ -129,6 +234,20 @@ document.getElementById("checkout-form").submit();
 							<div class="form-group">
 								<input class="input" type="tel" name="tel" placeholder="Telephone" required="true">
 							</div>
+							<!--- stripe element --->
+							<div class="form-group">
+  <div class="form-row">
+    <label for="card-element">
+      Credit or debit card
+    </label>
+    <div id="card-element">
+      <!-- a Stripe Element will be inserted here. -->
+    </div>
+
+    <!-- Used to display form errors -->
+    <div id="card-errors" role="alert"></div>
+  </div>
+							</div>
 							<div class="form-group">
 								<div class="input-checkbox">
 									<input type="checkbox" id="register">
@@ -154,6 +273,20 @@ document.getElementById("checkout-form").submit();
 									<h3>Street Adress:</h3>
 									<h4>#address#</h4>
 									<h4>#city#, #state# #zip#</h4>
+																<!--- stripe element --->
+							<div class="form-group">
+  <div class="form-row">
+    <label for="card-element">
+      Credit or debit card
+    </label>
+    <div id="card-element">
+      <!-- a Stripe Element will be inserted here. -->
+    </div>
+
+    <!-- Used to display form errors -->
+    <div id="card-errors" role="alert"></div>
+  </div>
+							</div>
 									<div class="form-group">
 								<div class="input-checkbox">
 									<input type="checkbox" id="different">
@@ -228,6 +361,7 @@ document.getElementById("checkout-form").submit();
 								</div>
 							</div>
 						</div>
+						<button class="primary-btn" trype="submit" id="StripeElement" onclick="pay();">Make payment</button>
 					</div>
 					</form>
 		<cfif isDefined('session.shoppingCart.item')>
@@ -309,7 +443,7 @@ document.getElementById("checkout-form").submit();
 							<div class="pull-right">
 <cfoutput>
 <cfset final = final * 100>
-<button class="primary-btn" trype="submit">Make payment</button>
+
 </cfoutput>								
 							</div>
 						</div>
@@ -443,6 +577,7 @@ document.getElementById("checkout-form").submit();
 	<script src="js/nouislider.min.js"></script>
 	<script src="js/jquery.zoom.min.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/customStripe.js"></script>
 			<script>
 function delbar() {
     var x = document.getElementById("snackbardel")
@@ -457,7 +592,6 @@ function addedbar() {
     setTimeout(function(){ x.className = x.className.replace("showadd", ""); }, 3000);
 }
 </script>
-<!--- stripe start here --->
 <script>
 // Create a Stripe client
 var stripe = Stripe('pk_test_e8WG9BIIRIdaZuqVbUbxJvlI');
@@ -469,7 +603,6 @@ var elements = stripe.elements();
 // (Note that this demo uses a wider set of styles than the guide below.)
 var style = {
   base: {
-
     color: '#32325d',
     lineHeight: '18px',
     fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
@@ -491,37 +624,31 @@ var card = elements.create('card', {style: style});
 // Add an instance of the card Element into the `card-element` <div>
 card.mount('#card-element');
   </script>
-<script>
-function stripeTokenHandler(token) {
-  // Insert the token ID into the form so it gets submitted to the server
-  var form = document.getElementById('payment-form');
-  var hiddenInput = document.createElement('input');
-  hiddenInput.setAttribute('type', 'hidden');
-  hiddenInput.setAttribute('name', 'stripeToken');
-  hiddenInput.setAttribute('value', token.id);
-  form.appendChild(hiddenInput);
+<div class="modal fade" id="myModal" role="dialog" style="text-align: center">
+        
+      <!-- Modal content-->
+         <div class="modal-body" align="center">
+	<!--- one cool loader 
+			<div class="sk-cube-grid">
+  <div class="sk-cube sk-cube1"></div>
+  <div class="sk-cube sk-cube2"></div>
+  <div class="sk-cube sk-cube3"></div>
+  <div class="sk-cube sk-cube4"></div>
+  <div class="sk-cube sk-cube5"></div>
+  <div class="sk-cube sk-cube6"></div>
+  <div class="sk-cube sk-cube7"></div>
+  <div class="sk-cube sk-cube8"></div>
+  <div class="sk-cube sk-cube9"></div>
+</div>
+--->
+<div class="spinner"></div>
+<div style="padding-top: 10px;"><h4 style="color:white">Loading...</h4></div>
+        </div>
+       
+      </div>
 
-  // Submit the form
-  form.submit();
-}
-// Create a token or display an error when the form is submitted.
-  var form = document.getElementById('payment-form');
-form.addEventListener('submit', function(event) {
-  event.preventDefault();
 
-  stripe.createToken(card).then(function(result) {
-    if (result.error) {
-      // Inform the customer that there was an error
-      var errorElement = document.getElementById('card-errors');
-      errorElement.textContent = result.error.message;
-    } else {
-      // Send the token to your server
-      stripeTokenHandler(result.token);
-    }
-  });
-});
 
-</script>
 </body>
 
 </html>
