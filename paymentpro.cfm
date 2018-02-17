@@ -56,7 +56,8 @@
 
 <!--- / strippe process end --->
   <!--- begin checkout process if cart and token --->
-        
+        <cfset this.email = "">
+        <cfset this.name = "">
                 <cfif isDefined('session.loggedUser.usersid')><!--- if user is logged in --->
                     <cfif isDefined('form.differentAddress')><!--- if user logged in but wants to ship to different address --->
                                   <cfquery name="getad">
@@ -75,8 +76,7 @@
                                   values('#getorder.orderid#','#session.shoppingcart.item[key].itemid#','#session.shoppingcart.item[key].qty#') 
                                   </cfquery>
                                   </cfloop>
-                                              <cfset name = '#session.loggedUser.userfirstname#' />
-                                              <cfset email = '#session.loggedUser.email#' />
+                                          
                                                           
                 </cfif><!--- / if different address --->
 
@@ -97,8 +97,6 @@
                                         values('#getorder.orderid#','#session.shoppingcart.item[key].itemid#','#session.shoppingcart.item[key].qty#') 
                                         </cfquery>
                                         </cfloop>  
-                      <cfset name = '#session.loggedUser.userfirstname#' />
-                      <cfset email = '#session.loggedUser.email#' />               
             <cfelseif not isDefined('session.loggedUser')><!--- cfelse user not logged in --->
                               <cfquery name="addrecord">
                                         insert into orders (usersid, address, city, state, zip, stripeConfirmation, date, userfirstname, shipping, amount, email, phone)
@@ -113,9 +111,15 @@
                                         values('#getorder.orderid#','#session.shoppingcart.item[key].itemid#','#session.shoppingcart.item[key].qty#') 
                                         </cfquery>
                                         </cfloop>
+            </cfif><!--- /cfif structure for logged in --->
+
+            <cfif isDefined('session.loggedUser')>
+                                  <cfset name = '#session.loggedUser.userfirstname#' />
+                      <cfset email = '#session.loggedUser.email#' />               
+                    <cfelse>
                                                                     <cfset name = '#url.firstname# #url.lastname#' />
                                                                     <cfset email = '#url.email#' />
-            </cfif><!--- /cfif structure for logged in --->
+                                                                  </cfif>
 <!--- now lets generate email for the user to confirm that order was placed --->
 <!--- first we need to get the order placed --->
 <cfquery name="getinfo"> SELECT * FROM Orders ORDER BY orderid DESC LIMIT 1;</cfquery>
@@ -247,7 +251,7 @@ path {
           </cfloop>
               </li>
             </ul>
-          <h5 style="color: ##9e3b32">Total: $ #total#</h5>
+          <h5 style="color: ##9e3b32">Total: $ #(total / 100)#</h5>
           <small>tax and shipping included</small>
           </div>
                   <h4 style="color: ##3f6eba">Shipping Infomration:</h4>
