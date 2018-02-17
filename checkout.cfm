@@ -1,3 +1,4 @@
+<cfif structKeyExists(session, 'shoppingcart')>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,6 +28,10 @@
 
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
+    <!-- This is what you need -->
+    <script src="dist/sweetalert.js"></script>
+    <link rel="stylesheet" href="dist/sweetalert.css">
+    <!--.......................-->
 <script src="https://js.stripe.com/v3/"></script>
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -202,7 +207,7 @@ background-color: rgba(255,255,255, 255, 12)  !important;
 		<div class="container">
 			<!-- row -->
 			<div class="row">
-				<form id="payment-form" class="clearfix" action="payment.cfm">
+				<form id="payment-form" class="clearfix" action="paymentpro.cfm">
 					<div class="col-md-6">
 						<cfif NOT structKeyExists(session, 'loggedUser')>
 						<div class="billing-details">
@@ -211,10 +216,10 @@ background-color: rgba(255,255,255, 255, 12)  !important;
 								<h3 class="title">Billing Details</h3>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="first-name" placeholder="First Name" required="true">
+								<input class="input" type="text" name="firstname" placeholder="First Name" required="true">
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="last-name" placeholder="Last Name"required="true">
+								<input class="input" type="text" name="lastname" placeholder="Last Name"required="true">
 							</div>
 							<div class="form-group">
 								<input class="input" type="email" name="email" placeholder="Email" required="true">
@@ -226,10 +231,10 @@ background-color: rgba(255,255,255, 255, 12)  !important;
 								<input class="input" type="text" name="city" placeholder="City" required="true">
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="country" placeholder="Country" required="true">
+								<input class="input" type="text" name="state" placeholder="state" required="true">
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="zip-code" placeholder="ZIP Code" required="true">
+								<input class="input" type="text" name="zip" placeholder="ZIP Code" required="true">
 							</div>
 							<div class="form-group">
 								<input class="input" type="tel" name="tel" placeholder="Telephone" required="true">
@@ -289,11 +294,12 @@ background-color: rgba(255,255,255, 255, 12)  !important;
 							</div>
 									<div class="form-group">
 								<div class="input-checkbox">
-									<input type="checkbox" id="different">
+									<input type="checkbox" id="different" value="differentaddress">
 									<label class="font-weak" for="different">Ship to Different Address?</label>
 									<div class="caption">
 										<p>Enter the Shipping address below:</p>
 											<p>
+												
 												<input class="input" type="text" name="address" placeholder="Address" required="true">
 												<input class="input" type="text" name="city" placeholder="City" required="true">
 												<input class="input" type="text" name="state" placeholder="State" required="true">
@@ -315,7 +321,7 @@ background-color: rgba(255,255,255, 255, 12)  !important;
 								<h4 class="title">Shiping Methods</h4>
 							</div>
 							<div class="input-checkbox">
-								<input type="radio" name="shipping" id="shipping-1" checked>
+								<input type="radio" name="shipping" id="free" checked>
 								<label for="shipping-1">Free Shiping -  $0.00</label>
 								<div class="caption">
 									<p>We offer free standard shipping any where in the us; However, you can select our 2 day shipping to expedite</p>
@@ -323,7 +329,7 @@ background-color: rgba(255,255,255, 255, 12)  !important;
 								</div>
 							</div>
 							<div class="input-checkbox">
-								<input type="radio" name="shipping" id="shipping-2">
+								<input type="radio" name="shipping" id="expedite">
 								<label for="shipping-2">Standard - $4.00</label>
 								<div class="caption">
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -647,8 +653,18 @@ card.mount('#card-element');
        
       </div>
 
-
+<cfif structKeyExists(url, 'declined')>
+	<cfoutput>
+<script>
+swal("Transaction Error!", "#url.message#!", "error")
+</script>
+</cfoutput>
+</cfif>
 
 </body>
 
 </html>
+<cfelse>
+
+	<cflocation url="index.cfm" />
+</cfif>

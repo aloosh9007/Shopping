@@ -27,7 +27,7 @@
 									and activated = 1
 									</cfquery>
 										<cfif #rsloginuser.recordcount# eq 1>
-<cfset session.loggedUser = {'userfirstname' = '#rsloginuser.firstname#', 'userid' = '#rsloginuser.usersid#' } />
+<cfset session.loggedUser = {'userfirstname' = '#rsloginuser.firstname#', 'userid' = '#rsloginuser.usersid#', email = '#rsloginuser.email#' } />
 <cfif structKeyExists(session, 'loggedUser')>
 <cfoutput>
 [ { "isUser": true} ] 
