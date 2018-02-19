@@ -705,7 +705,7 @@ select * from subdepartment where departmentid =  "#dptmenu['departmentid'][i]#"
 									</ul>
 									<a href="product-page.cfm?itemid=#itemid#">
 									<button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button></a>
-									<cfif #cartImg# eq ""><img src="./img/product01.jpg" alt=""><cfelse><img src="#cartImg#" alt=""></cfif>
+									<cfif #productimg# eq ""><img src="./img/product01.jpg" alt=""><cfelse><img src="#productimg#" alt=""></cfif>
 								</div>
 								<div class="product-body"><cfset priceOld = #price# * 1.2 />
 									<h3 class="product-price">$#price# <del class="product-old-price">$#priceOld#</del></h3>
@@ -799,7 +799,7 @@ select * from subdepartment where departmentid =  "#dptmenu['departmentid'][i]#"
 							<div class="product product-single">
 								<div class="product-thumb">
 	<a href="product-page.cfm?itemid=#itemid#"><button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button></a>
-									<cfif #cartImg# eq ""><img src="./img/product01.jpg" alt=""><cfelse><img src="#cartImg#" alt=""></cfif>
+									<cfif #productimg# eq ""><img src="./img/product01.jpg" alt=""><cfelse><img src="#productimg#" alt=""></cfif>
 								</div>
 								<div class="product-body">
 									<h3 class="product-price">$#Price#</h3>

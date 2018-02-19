@@ -341,7 +341,6 @@ function copyToClipboard(element) {
 													</div>
 												</div>
 											</cfoutput>
-
 												<ul class="reviews-pages">
 													<cfloop from="1" to="#numberofpages#" index="i">
 													<cfif #i# eq #url.page#>
@@ -383,7 +382,14 @@ function copyToClipboard(element) {
 												<div class="form-group">
 													<textarea name="review" id="3" class="input" placeholder="Your review" required="true"></textarea>
 												</div>
-												<cfoutput><input type="hidden" name="itemid" value="#item.itemid#" /></cfoutput>
+												<cfoutput>
+												<cfif isDefined('url.itemid')>
+												<input type="hidden" name="itemid" value="#url.itemid#" />
+												<cfelse>
+												<input type="hidden" name="itemid" value="#item.itemid#" />
+												</cfif>
+											</cfoutput>
+\
 												<div class="form-group">
 													<div class="input-rating">
 														<strong class="text-uppercase">Your Rating: </strong>

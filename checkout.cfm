@@ -33,7 +33,8 @@
     <link rel="stylesheet" href="dist/sweetalert.css">
     <!--.......................-->
 <script src="https://js.stripe.com/v3/"></script>
-
+	<!-- Custom loaders -->
+	<link type="text/css" rel="stylesheet" href="css/loaders.css" />
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -71,117 +72,10 @@ $('#tfooter').html(content);
 </cfif>
 <style>
 .modal-backdrop {
-background-color: rgba(255,255,255, 255, 12)  !important;
+background-color: rgba(255,255,255, 255, .01)  !important;
 }
 
-.spinner {
-	margin-top: 20%;
-  border: 10px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 10px solid #3498db;
-  width: 100px;
-  height: 100px;
-  -webkit-animation: spin 1s linear infinite; /* Safari */
-  animation: spin 1s ease infinite;
-}
-/* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.sk-cube-grid {
-  width: 40px;
-  height: 40px;
-  margin: 100px auto;
-}
-
-.sk-cube-grid .sk-cube {
-  width: 33%;
-  height: 33%;
-  background-color: white;
-  float: left;
-  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
-          animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
-}
-.sk-cube-grid .sk-cube1 {
-  -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s; }
-.sk-cube-grid .sk-cube2 {
-  -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s; }
-.sk-cube-grid .sk-cube3 {
-  -webkit-animation-delay: 0.4s;
-          animation-delay: 0.4s; }
-.sk-cube-grid .sk-cube4 {
-  -webkit-animation-delay: 0.1s;
-          animation-delay: 0.1s; }
-.sk-cube-grid .sk-cube5 {
-  -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s; }
-.sk-cube-grid .sk-cube6 {
-  -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s; }
-.sk-cube-grid .sk-cube7 {
-  -webkit-animation-delay: 0s;
-          animation-delay: 0s; }
-.sk-cube-grid .sk-cube8 {
-  -webkit-animation-delay: 0.1s;
-          animation-delay: 0.1s; }
-.sk-cube-grid .sk-cube9 {
-  -webkit-animation-delay: 0.2s;
-          animation-delay: 0.2s; }
-
-@-webkit-keyframes sk-cubeGridScaleDelay {
-  0%, 70%, 100% {
-    -webkit-transform: scale3D(1, 1, 1);
-            transform: scale3D(1, 1, 1);
-  } 35% {
-    -webkit-transform: scale3D(0, 0, 1);
-            transform: scale3D(0, 0, 1); 
-  }
-}
-
-@keyframes sk-cubeGridScaleDelay {
-  0%, 70%, 100% {
-    -webkit-transform: scale3D(1, 1, 1);
-            transform: scale3D(1, 1, 1);
-  } 35% {
-    -webkit-transform: scale3D(0, 0, 1);
-            transform: scale3D(0, 0, 1);
-  } 
-}
-/**
- * The CSS shown here will not be introduced in the Quickstart guide, but shows
- * how you can use CSS to style your Element's container.
- */
-.StripeElement {
-  background-color: white;
-  height: 40px;
-  padding: 10px 12px;
-  border-radius: 4px;
-  border: 1px solid #ccd0d2;
-  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  -webkit-transition: box-shadow 150ms ease;
-  transition: box-shadow 150ms ease;
-}
-
-.StripeElement--focus {
-  box-shadow: 0 1px 3px 0 #cfd7df;
-}
-
-.StripeElement--invalid {
-  border-color: #fa755a;
-}
-
-.StripeElement--webkit-autofill {
-  background-color: #fefde5 !important;
-}
 
 </style>
 </head>
@@ -646,12 +540,41 @@ card.mount('#card-element');
   <div class="sk-cube sk-cube8"></div>
   <div class="sk-cube sk-cube9"></div>
 </div>
---->
+
 <div class="spinner"></div>
+
+<div class="loader"><i class="loader__tile loader__tile__1"></i><i class="loader__tile loader__tile__2"></i><i class="loader__tile loader__tile__3"></i><i class="loader__tile loader__tile__4"></i><i class="loader__tile loader__tile__5"></i><i class="loader__tile loader__tile__6"></i><i class="loader__tile loader__tile__7"></i><i class="loader__tile loader__tile__8"></i><i class="loader__tile loader__tile__9"></i></div>
+
+ --->
+
+ <div class="main">
+
+
+    <div class="s1">
+      <div class="s b sb1"></div>
+      <div class="s b sb2"></div>
+      <div class="s b sb3"></div>
+      <div class="s b sb4"></div>
+    </div>
+
+
+    <div class="s2">
+      <div class="s b sb5"></div>
+      <div class="s b sb6"></div>
+      <div class="s b sb7"></div>
+      <div class="s b sb8"></div>
+    </div>
+
+    <div class="bigcon">
+      <div class="big b"></div>
+    </div>
+
+
+  </div>
 <div style="padding-top: 10px;"><h4 style="color:white">Loading...</h4></div>
         </div>
        
-      </div>
+</div>
 
 <cfif structKeyExists(url, 'declined')>
 	<cfoutput>

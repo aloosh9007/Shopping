@@ -1,0 +1,361 @@
+.spinner {
+  margin-top: 20%;
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid #3498db;
+  width: 100px;
+  height: 100px;
+  -webkit-animation: spin 1s linear infinite; /* Safari */
+  animation: spin 1s ease infinite;
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.sk-cube-grid {
+  width: 40px;
+  height: 40px;
+  margin: 100px auto;
+}
+
+.sk-cube-grid .sk-cube {
+  width: 33%;
+  height: 33%;
+  background-color: white;
+  float: left;
+  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+          animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+}
+.sk-cube-grid .sk-cube1 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube2 {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube3 {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s; }
+.sk-cube-grid .sk-cube4 {
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube5 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+.sk-cube-grid .sk-cube6 {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s; }
+.sk-cube-grid .sk-cube7 {
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s; }
+.sk-cube-grid .sk-cube8 {
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s; }
+.sk-cube-grid .sk-cube9 {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s; }
+
+@-webkit-keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+  } 35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1); 
+  }
+}
+
+@keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% {
+    -webkit-transform: scale3D(1, 1, 1);
+            transform: scale3D(1, 1, 1);
+  } 35% {
+    -webkit-transform: scale3D(0, 0, 1);
+            transform: scale3D(0, 0, 1);
+  } 
+}
+
+
+      .loader {
+  width: 100px;
+  height: 100px;
+  -webkit-perspective: 100px;
+          perspective: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+}
+
+.loader__tile {
+  display: block;
+  float: left;
+  width: 33.33%;
+  height: 33.33%;
+  -webkit-animation-name: flip;
+          animation-name: flip;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+  z-index: 0;
+}
+
+.loader__tile__1 {
+  background-color: #3f2de2;
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
+}
+
+.loader__tile__2 {
+  background-color: #c42e03;
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+
+.loader__tile__3 {
+  background-color: #32d338;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+
+.loader__tile__4 {
+  background-color: #eab820;
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+
+.loader__tile__5 {
+  background-color: #b23ba2;
+  -webkit-animation-delay: 0.5s;
+          animation-delay: 0.5s;
+}
+
+.loader__tile__6 {
+  background-color: #dc2c34;
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s;
+}
+
+.loader__tile__7 {
+  background-color: #f77118;
+  -webkit-animation-delay: 0.7s;
+          animation-delay: 0.7s;
+}
+
+.loader__tile__8 {
+  background-color: #5b3f1a;
+  -webkit-animation-delay: 0.8s;
+          animation-delay: 0.8s;
+}
+
+.loader__tile__9 {
+  background-color: #aa2305;
+  -webkit-animation-delay: 0.9s;
+          animation-delay: 0.9s;
+}
+
+@-webkit-keyframes flip {
+  0% {
+    -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+  }
+  11% {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+  }
+}
+
+@keyframes flip {
+  0% {
+    -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+  }
+  11% {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+  }
+}
+
+
+
+
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+.StripeElement {
+  background-color: white;
+  height: 40px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccd0d2;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+.s2 {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  background-color: transparent;
+  top: 50vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.s1 {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  top: 50vh;
+  left: 50%;
+  transform-origin: center;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background-color: transparent;
+}
+
+.bigcon {
+  position: absolute;
+  height: 95px;
+  width: 95px;
+  top: 50vh;
+  left: 50%;
+  transform-origin: center;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  background-color: transparent;
+  animation: bigcon 2s infinite linear;
+  animation-delay: 0.25s;
+}
+
+.b {
+  border-radius: 50%;
+  position: absolute;
+}
+
+.s {
+  width: 25px;
+  height: 25px;
+  animation: small 2s infinite ease;
+  box-shadow: 0px 2px rgba(0,0,0,0.3);
+   background-color: #46b9ff;
+}
+
+.s:nth-child(1) {
+  top: 0%;
+  left: 0%;
+}
+
+.s:nth-child(2) {
+  top: 0%;
+  right: 0%;
+}
+
+.s:nth-child(3) {
+  right: 0%;
+  bottom: 0%;
+}
+
+.s:nth-child(4) {
+  bottom: 0%;
+  left: 0%;
+}
+
+.big {
+  width: 20px;
+  height: 20px;
+  border-radius: 15px;
+  box-shadow:0px 0px 10px #54f7f8, 0px 0px 20px #54f7f8, 0px 0px 30px #54f7f8, 0px 0px 50px #54f7f8, 0px 0px 60px #54f7f8 ;
+  z-index: 1;
+  background-color: #54f7f8;
+  animation: bigball 1s infinite linear;
+}
+
+.sb1{
+  animation-delay: -1.75s;
+}
+.sb6{
+  animation-delay: -1.5s;
+}
+.sb2{
+  animation-delay: -1.25s;
+}
+.sb7{
+  animation-delay: -1s;
+}
+.sb3{
+  animation-delay: -0.75s;
+}
+.sb8{
+  animation-delay: -0.5s;
+}
+.sb4{
+  animation-delay: -0.25s;
+}
+.sb5{
+  animation-delay: -0s;
+}
+
+@keyframes bigcon {
+  0% {
+    transform-origin: center;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  100% {
+    transform-origin: center;
+    transform: translate(-50%, -50%) rotate(405deg);
+  }
+}
+
+@keyframes small {
+  0% {
+    transform: scale(1);
+     background-color: #46b9ff;
+  }
+  10% {
+    transform: scale(1.3);
+    background-color: #54f7f8;
+  }
+  15% {
+    transform: scale(1);
+  }
+  25%{
+transform: scale(1);
+     background-color: #46b9ff;
+  }
+  100%{
+    transform: scale(1);
+     background-color: #46b9ff;
+  }
+}
