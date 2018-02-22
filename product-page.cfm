@@ -264,7 +264,7 @@ function copyToClipboard(element) {
 									<span class="text-uppercase">QTY: </span>
 									<input class="input" type="number" id="itemqty" value="1">
 								</div>
-								<button class="primary-btn add-to-cart" onclick="addnew(#itemid#, #price#)"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+								<button class="primary-btn add-to-cart" onclick="addnew(#itemid#, #price#);addedbar(); "><i class="fa fa-shopping-cart"></i> Add to Cart</button>
 								<div class="pull-right">
 									<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 									<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
@@ -274,6 +274,7 @@ function copyToClipboard(element) {
 							</div>
 						</div>
 					</div>
+					<div id="snackbaradd">Item Added!</div>
 					<div id="snackbar">Link Copied</div>
 					<div class="col-md-12">
 						<div class="product-tab">
@@ -688,7 +689,13 @@ function successbar() {
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 }
 </script>
-
+<script>
+function addedbar() {
+    var x = document.getElementById("snackbaradd")
+    x.className = "showadd";
+    setTimeout(function(){ x.className = x.className.replace("showadd", ""); }, 3000);
+}
+</script>
 </body>
 
 </html>

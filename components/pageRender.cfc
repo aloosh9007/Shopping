@@ -7,7 +7,20 @@ Select * from items where Onsale = 1
 </cfquery>
 <cfreturn itemOnsale>
 </cffunction>
+<!--- recomended items --->
+<cffunction name="recomended" access="public" returntype="query">
+<cfargument name="usersid" required="false">
+<cfset items = '' />
+<cfif isDefined('argumetns.usersid')>
+<cfquery name="last">
 
+</cfquery>
+	<cfelse>
+
+
+		</cfif>
+<cfreturn items />
+	</cffunction>
 
 <!-- get best seller -->
 <cffunction name="bestseller" access="public" returntype="query">
